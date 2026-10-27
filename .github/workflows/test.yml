@@ -13,3 +13,22 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm test
+  windows-updater:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Install desktop updater versions in a temporary directory
+        shell: pwsh
+        run: |
+          $deps = Join-Path $env:RUNNER_TEMP 'nuts-updater-deps'
+          New-Item -ItemType Directory -Force $deps | Out-Null
+          npm install --prefix $deps --no-audit --no-fund electron@20.1.0 electron-winstaller@5.0.0
+      - name: Verify real updater reports no update without downloading or changing installed state
+        shell: pwsh
+        run: node test/windows/updater.cjs (Join-Path $env:RUNNER_TEMP 'nuts-updater-deps')
