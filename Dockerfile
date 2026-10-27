@@ -1,10 +1,10 @@
-FROM mhart/alpine-node:5.8.0
+FROM node:22-alpine
 
 # Switch to /app
 WORKDIR /app
 # Install deps
-COPY package.json ./
-RUN npm install --production
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 # Copy source
 COPY . ./
 

@@ -5,7 +5,12 @@
   "main": "./lib/index.js",
   "homepage": "https://github.com/GitbookIO/nuts",
   "license": "Apache-2.0",
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
+    "@octokit/auth-app": "8.3.1",
+    "@octokit/request": "10.0.16",
     "analytics-node": "1.2.2",
     "basic-auth": "1.0.3",
     "body-parser": "1.12.3",
@@ -16,11 +21,8 @@
     "github-webhook-handler": "0.5.0",
     "lodash": "3.7.0",
     "lru-diskcache": "1.1.1",
-    "octocat": "0.10.2",
     "q": "1.2.0",
-    "request": "2.60.0",
     "semver": "5.0.1",
-    "stream-res": "1.0.1",
     "strip-bom": "2.0.0",
     "understudy": "4.1.0",
     "urljoin.js": "0.1.0",
@@ -45,6 +47,6 @@
   },
   "scripts": {
     "start": "node bin/web.js",
-    "test": "mocha --reporter list"
+    "test": "node node_modules/mocha/bin/_mocha --reporter list && node --test test/auth/*.test.js"
   }
 }

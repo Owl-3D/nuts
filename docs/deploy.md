@@ -8,6 +8,17 @@ Heroku is the perfect solution to host a Nuts instance.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
+Heroku Git deployment does not require the Heroku GitHub OAuth integration.
+Keep the application's GitHub source remote and Heroku deployment remote separate.
+Test the selected commit, then push that commit to the Heroku remote's `master`
+branch. The runtime's read-only GitHub App credentials are independent of this
+deployment login; see [GitHub authentication](github.md).
+
+Set all App config variables in one update using a secure local input or the
+platform's secret-management UI. Config changes restart the app. A Heroku rollback
+restores both the old slug and its configuration: after a repository transfer,
+do not blindly roll back to an old personal-repository path or expired PAT.
+
 ### With docker
 
 Nuts can also be run as a Docker container:
@@ -18,10 +29,10 @@ docker run -it -p 80:80 -e GITHUB_REPO=username/repo gitbook/nuts
 
 ### On your own server:
 
-Install dependencies using:
+Use Node.js 22 and install the locked dependencies using:
 
 ```
-$ npm install
+$ npm ci
 ```
 
 This service requires to be configured using environment variables:

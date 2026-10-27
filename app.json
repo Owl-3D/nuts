@@ -9,7 +9,20 @@
             "description": "Repository for the application's releases"
         },
         "GITHUB_TOKEN": {
-            "description": "Access token for GitHub API"
+            "description": "Legacy access token; omit when using the GitHub App settings",
+            "required": false
+        },
+        "GITHUB_APP_ID": {
+            "description": "Numeric GitHub App ID; all three App fields are required together",
+            "required": false
+        },
+        "GITHUB_APP_INSTALLATION_ID": {
+            "description": "Numeric installation ID for the release-reader App",
+            "required": false
+        },
+        "GITHUB_APP_PRIVATE_KEY": {
+            "description": "Full RSA PEM private key with actual newlines; server-side secret",
+            "required": false
         },
         "API_USERNAME": {
             "description": "Username for private API access"
