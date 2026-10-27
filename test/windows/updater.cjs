@@ -42,6 +42,7 @@ fs.writeFileSync(main, `
   const { app, autoUpdater } = require('electron');
   const fs = require('fs');
   const events = [];
+  app.disableHardwareAcceleration();
   function finish(event, detail) {
     events.push(event);
     fs.writeFileSync(process.env.NUTS_RESULT, JSON.stringify({ events, detail }));
@@ -79,7 +80,9 @@ async function check(server, version) {
   assert(requests.length > 0);
   assert(requests.every(url => url === `/update/win32_x64/${version}/RELEASES`));
   assert.equal(fs.readFileSync(localReleases, 'utf8'), manifest(version));
-  assert.deepEqual(fs.readdirSync(packages), ['RELEASES']);
+  // Squirrel may create its staged-rollout identifier on the first check.
+  // It must not download packages or rewrite the installed-version manifest.
+  assert(fs.readdirSync(packages).every(name => name === 'RELEASES' || name === '.betaId'));
 }
 
 (async () => {
