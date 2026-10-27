@@ -20,6 +20,9 @@ if (process.env.ANALYTICS_TOKEN) {
 var myNuts = nuts.Nuts({
     repository: process.env.GITHUB_REPO,
     token: process.env.GITHUB_TOKEN,
+    appId: process.env.GITHUB_APP_ID,
+    installationId: process.env.GITHUB_APP_INSTALLATION_ID,
+    privateKey: process.env.GITHUB_APP_PRIVATE_KEY,
     endpoint: process.env.GITHUB_ENDPOINT,
     username: process.env.GITHUB_USERNAME,
     password: process.env.GITHUB_PASSWORD,
